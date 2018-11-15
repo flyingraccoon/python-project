@@ -41,7 +41,7 @@ try:
         auth(username,password)
 
     def auth(name,password):
-        file1 = open('username.txt')
+        file1 = open('username.txt','r')
         auth_data = file1.readlines()
         for i in range(len(auth_data)):
             if i%2 == 0:
