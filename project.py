@@ -2,22 +2,48 @@ try:
     import time,sys,random
     usernames = []
     passwords = []
-    player_playing = 1
     def game():
         # Dice rolls
         score1 = 0
         score2 = 0
         rounds = 0
-        while rounds < 6:
+        rounds_o = 1
+        player_playing = 1
+        print('Now for round 1')
+        while rounds < 10:
             dice1 = random.randint(1,6)
             dice2 = random.randint(1,6)
             total = dice1 + dice2
             if player_playing == 1:
                 score1+=total
-                print('Your score is',score1)
+                print('Player one, your score is',score1)
+                time.sleep(1)
+                player_playing = 2
             else:
                 score2+=total
+                print('Player two, your score is',score2)
+                time.sleep(1)
+                if rounds_o<5:
+                    print('Now for round',rounds_o+1)
+                player_playing = 1
+                rounds_o+=1
             rounds +=1
+        while score1 == score2:
+            dice3 = random.randint(1,6)
+            if player_playing == 1:
+                score1+=total
+                print('Player one, your score is',score1)
+                time.sleep(1)
+                player_playing = 2
+            else:
+                score2+=total
+                print('Player two, your score is',score2)
+                time.sleep(1)
+                player_playing = 1
+        if score1 > score2:
+            print('Player one, you have won')
+        else:
+            print('Player two you have won')            
     def menu():
         # Rules
         print('Welcome to the dice game.')
@@ -61,7 +87,7 @@ try:
         auth(username1,password1,2)
 
     def auth(name,password,player):
-        print(player)
+        #print(player)
         # opens file with usernames and passwords
         file1 = open('username.txt','r')
         auth_data = file1.readlines()
@@ -81,13 +107,15 @@ try:
                     menu()
             else:
                 print('Authentication error')
-                login()
+                if player == 2:
+                    login1()
+                else:
+                    login()
         except ValueError as e:
             print('Authentication error')
             login()
 
     login()
-    #game()
 except KeyboardInterrupt as x:
     print('\nSee you later!!!')
 
