@@ -74,12 +74,12 @@ try:
             if player_playing == 1:
                 score1+=total
                 print('Player one, your score is',score1)
-                time.sleep(1)
+                #time.sleep(1)
                 player_playing = 2
             else:
                 score2+=total
                 print('Player two, your score is',score2)
-                time.sleep(1)
+                #time.sleep(1)
                 player_playing = 1
         if score1 > score2:
             # See who won
@@ -101,6 +101,7 @@ try:
     def sort2(value):
         return int(value[1])
     def leaderboard():
+        y=0
         # Opens file
         file = open('leaderboard.txt','r')
         # Strips the newline, and splits the values at the comma
@@ -113,9 +114,18 @@ try:
         # Sort the list
         scores_list.sort(key = sort2,reverse=True)
         #print(str(scores_list)[1:-1])
+        file = open('leaderboard.txt','w')
         # Print the leaderboard
+        #print(scores_list)
         for x in scores_list:
-            print(x[0],x[1])
+            #print(x[0],x[1])
+            file.write('%s,%s\n' % (x[0],x[1]))
+        file.close()
+        file1 = open('leaderboard.txt','r')
+        while y < 5:
+            print(file1.readline(),end='')
+            y+=1
+        time.sleep(1)
         menu()
     def menu():
         # Rules
@@ -136,7 +146,7 @@ try:
         print('Option 2: Quit the Game')
         print('Option 3: View the high score')
         choice = input('Choose an option, 1,2 or 3: ')
-
+        #choice = '1'
         if choice == '1':
             # Magical game
             game()
